@@ -1,8 +1,8 @@
 import './App.css'
 import React from 'react'
 import ListaCards from './components/ListaCards';
-import { useState } from 'react';
-
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Formulario from './pages/Formulario';
 export interface Tarjeta{
   id: number;
   nombre: string;
@@ -40,34 +40,17 @@ const tarjetas: Tarjeta[] = [
 ]
 
 const App: React.FC = () => {
-  const [nombre, setNombre] = useState<string>('');
-  const [apellido, setApellido] = useState<string>('');
-
-  const nom =(e:any)=>{
-    setNombre(e)
-  }
-  const ape =(e:any)=>{
-    setApellido(e)
-  }
+  
   return (
-    <>
-      <ListaCards tarjetas={tarjetas}/>
+    <BrowserRouter>
+    <Routes>
+      <Route path='/' element={
+        <ListaCards tarjetas={tarjetas}/>
+      }/>
+      <Route path='/form' element={<Formulario/>}/>
+    </Routes>
       
-      <div className='nombreApellido'>
-        <input type="text" onChange={(e)=>{
-          nom(e.target.value)
-        }
-        } placeholder='Nombre'/>
-        <input type="text" onChange={(e)=>{
-          ape(e.target.value)
-        }
-        } placeholder='Apellido'/>
-        
-        <button onClick={()=>{
-          alert(`Hola ${nombre} ${apellido}`)
-        }}>Ingresar</button>  
-      </div>
-    </>
+    </BrowserRouter>
   )
 }
 
